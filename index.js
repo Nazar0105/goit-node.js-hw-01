@@ -1,6 +1,5 @@
-// index.js
 const yargs = require('yargs');
-const { listContacts, getContactById, removeContact, addContact } = require('./contacts');
+const { listContacts, getContactById, removeContact, addContact } = require('./src/contacts');
 
 const options = yargs
   .usage('Usage: $0 <command> [options]')
@@ -60,29 +59,29 @@ async function run() {
       case 'list':
         const allContacts = await listContacts();
         console.log('List of contacts:');
-        console.log(allContacts);
+        console.log(JSON.stringify(allContacts, null, 2));
         break;
 
       case 'get':
         const contactById = await getContactById(options.id);
         console.log('Contact by ID:');
-        console.log(contactById || 'Contact not found');
+        console.log(contactById === undefined ? 'Contact not found' : JSON.stringify(contactById, null, 2));
         break;
 
       case 'add':
         const newContact = await addContact(options.name, options.email, options.phone);
         console.log('New contact added:');
-        console.log(newContact);
+        console.log(JSON.stringify(newContact, null, 2));
         break;
 
       case 'remove':
         const removedContact = await removeContact(options.id);
         console.log('Removed contact:');
-        console.log(removedContact || 'Contact not found');
+        console.log(removedContact === undefined ? 'Contact not found' : JSON.stringify(removedContact, null, 2));
         break;
 
       default:
-        console.log('Invalid command. Use --help for usage information.');
+        console.error('Unknown command. Use --help for usage information.');
         break;
     }
   } catch (error) {
