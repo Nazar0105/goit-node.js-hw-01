@@ -1,5 +1,6 @@
 const yargs = require('yargs');
-const { listContacts, getContactById, removeContact, addContact } = require('./src/contacts');
+const { listContacts, getContactById, removeContact, addContact } = require('./contacts');
+
 
 const options = yargs
   .usage('Usage: $0 <command> [options]')
